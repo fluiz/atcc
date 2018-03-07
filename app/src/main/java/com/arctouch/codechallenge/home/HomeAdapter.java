@@ -103,4 +103,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(movies.get(position));
     }
+
+    public void appendData(List<Movie> newMoviesList) {
+        int positionStart = movies.size();
+        int itemCount = newMoviesList.size();
+        movies.addAll(newMoviesList);
+        notifyItemRangeInserted(positionStart, itemCount);
+    }
 }
