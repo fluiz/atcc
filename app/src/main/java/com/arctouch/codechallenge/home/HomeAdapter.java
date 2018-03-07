@@ -1,7 +1,6 @@
 package com.arctouch.codechallenge.home;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,19 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arctouch.codechallenge.R;
-import com.arctouch.codechallenge.api.MovieService;
-import com.arctouch.codechallenge.content.movie.MovieActivity;
-import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Movie;
-import com.arctouch.codechallenge.util.Constants;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 

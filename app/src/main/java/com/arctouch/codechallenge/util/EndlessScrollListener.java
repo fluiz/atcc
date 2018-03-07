@@ -1,10 +1,8 @@
 package com.arctouch.codechallenge.util;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 
 /**
  * Created by Fabio on 07/03/2018.
