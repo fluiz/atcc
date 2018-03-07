@@ -36,3 +36,7 @@ captures/
 *.iml
 .idea/*
 
+
+app/\.idea/
+
+app/src/\.idea/
