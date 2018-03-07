@@ -1,19 +1,13 @@
 package com.arctouch.codechallenge.api;
 
-import android.view.View;
-
 import com.arctouch.codechallenge.data.Cache;
-import com.arctouch.codechallenge.home.HomeAdapter;
 import com.arctouch.codechallenge.interfaces.GenresCallbackInterface;
 import com.arctouch.codechallenge.interfaces.MovieCallbackInterface;
 import com.arctouch.codechallenge.interfaces.UpcomingMoviesCallbackInterface;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
-import com.arctouch.codechallenge.model.UpcomingMoviesResponse;
 import com.arctouch.codechallenge.util.Constants;
-
 import java.util.ArrayList;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.OkHttpClient;
