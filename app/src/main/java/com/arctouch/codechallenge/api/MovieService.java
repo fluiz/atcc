@@ -58,7 +58,6 @@ public class MovieService {
                             }
                         }
                     }
-
                     umci.onGetUpcomingMoviesSuccess(moviesList.results);
                 });
     }
