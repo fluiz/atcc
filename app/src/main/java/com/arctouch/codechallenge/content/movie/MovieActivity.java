@@ -2,24 +2,19 @@ package com.arctouch.codechallenge.content.movie;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.api.MovieService;
-import com.arctouch.codechallenge.interfaces.MovieCallbackInterface;
-import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.util.Constants;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-public class MovieActivity extends Activity {
+public class MovieActivity extends AppCompatActivity {
 
     private static final String TAG = MovieActivity.class.getSimpleName();
     private int movieId;
