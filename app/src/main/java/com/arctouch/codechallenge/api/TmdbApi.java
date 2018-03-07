@@ -12,23 +12,16 @@ import retrofit2.http.Query;
 public interface TmdbApi {
 
     @GET("genre/movie/list")
-    Observable<GenreResponse> genres(
-            @Query("api_key") String apiKey,
-            @Query("language") String language
-    );
+    Observable<GenreResponse> genres();
 
     @GET("movie/upcoming")
     Observable<UpcomingMoviesResponse> upcomingMovies(
-            @Query("api_key") String apiKey,
-            @Query("language") String language,
             @Query("page") Long page,
             @Query("region") String region
     );
 
     @GET("movie/{id}")
     Observable<Movie> movie(
-            @Path("id") Long id,
-            @Query("api_key") String apiKey,
-            @Query("language") String language
+            @Path("id") Long id
     );
 }
