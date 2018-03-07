@@ -1,8 +1,11 @@
 package com.arctouch.codechallenge.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,22 +13,31 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arctouch.codechallenge.R;
+import com.arctouch.codechallenge.api.MovieService;
+import com.arctouch.codechallenge.content.movie.MovieActivity;
 import com.arctouch.codechallenge.model.Movie;
+import com.arctouch.codechallenge.util.Constants;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
+    private static final String TAG = HomeAdapter.class.getSimpleName();
     private List<Movie> movies;
+    private Context context;
 
-    public HomeAdapter(List<Movie> movies) {
+    public HomeAdapter(Context context, List<Movie> movies) {
+        this.context = context;
         this.movies = movies;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         private final MovieImageUrlBuilder movieImageUrlBuilder = new MovieImageUrlBuilder();
 
@@ -36,6 +48,24 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if(position >= 0) {
+                        try {
+                            int selectedMovieId = ((Movie)movies.get(position)).id;
+                            if (context instanceof HomeActivity) {
+                                ((HomeActivity) context).showMovieDetails(selectedMovieId);
+                            }
+                        } catch (Exception e) {
+                            Log.e(TAG, "Error getting movieId or calling Movie Details", e);
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
             titleTextView = itemView.findViewById(R.id.titleTextView);
             genresTextView = itemView.findViewById(R.id.genresTextView);
             releaseDateTextView = itemView.findViewById(R.id.releaseDateTextView);
