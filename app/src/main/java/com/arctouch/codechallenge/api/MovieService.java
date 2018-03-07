@@ -4,6 +4,7 @@ import android.view.View;
 
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.home.HomeAdapter;
+import com.arctouch.codechallenge.interfaces.GenresCallbackInterface;
 import com.arctouch.codechallenge.interfaces.MovieCallbackInterface;
 import com.arctouch.codechallenge.interfaces.UpcomingMoviesCallbackInterface;
 import com.arctouch.codechallenge.model.Genre;
@@ -60,5 +61,19 @@ public class MovieService {
 
                     umci.onGetUpcomingMoviesSuccess(moviesList.results);
                 });
+    }
+
+    public static void getGenres(GenresCallbackInterface gci) {
+        if(Cache.getGenres() != null && Cache.getGenres().size() > 0) {
+            gci.onGetGenresSuccess();
+        } else {
+            api.genres(Constants.API_KEY, Constants.DEFAULT_LANGUAGE)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(response -> {
+                        Cache.setGenres(response.genres);
+                        gci.onGetGenresSuccess();
+                    });
+        }
     }
 }
