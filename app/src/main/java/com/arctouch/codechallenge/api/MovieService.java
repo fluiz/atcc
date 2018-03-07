@@ -7,10 +7,16 @@ import com.arctouch.codechallenge.interfaces.UpcomingMoviesCallbackInterface;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.util.Constants;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
@@ -21,9 +27,28 @@ import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class MovieService {
 
+    private static final OkHttpClient okHttpClient = new OkHttpClient()
+            .newBuilder()
+            .addInterceptor(chain -> {
+                Request originalRequest = chain.request();
+                HttpUrl originalUrl = originalRequest.url();
+
+                HttpUrl url = originalUrl.newBuilder()
+                        .addQueryParameter("api_key", Constants.API_KEY)
+                        .addQueryParameter("language", Constants.DEFAULT_LANGUAGE)
+                        .build();
+
+                Request.Builder requestBuilder = originalRequest.newBuilder()
+                        .url(url);
+
+                Request request = requestBuilder.build();
+                return chain.proceed(request);
+            }
+            ).build();
+
     private static final TmdbApi api = new Retrofit.Builder()
             .baseUrl(Constants.URL)
-            .client(new OkHttpClient.Builder().build())
+            .client(okHttpClient)
             .addConverterFactory(MoshiConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
