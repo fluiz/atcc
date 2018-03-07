@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.api.MovieService;
 import com.arctouch.codechallenge.content.movie.MovieActivity;
+import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.util.Constants;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
@@ -48,21 +49,16 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
 
         public ViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if(position >= 0) {
-                        try {
-                            int selectedMovieId = ((Movie)movies.get(position)).id;
-                            if (context instanceof HomeActivity) {
-                                ((HomeActivity) context).showMovieDetails(selectedMovieId);
-                            }
-                        } catch (Exception e) {
-                            Log.e(TAG, "Error getting movieId or calling Movie Details", e);
-                            e.printStackTrace();
+            itemView.setOnClickListener(view -> {
+                int position = getAdapterPosition();
+                if(position >= 0) {
+                    try {
+                        int selectedMovieId = ((Movie)movies.get(position)).id;
+                        if (context instanceof HomeActivity) {
+                            ((HomeActivity) context).showMovieDetails(selectedMovieId);
                         }
+                    } catch (Exception e) {
+                        Log.e(TAG, "Error getting movieId or calling Movie Details", e);
                     }
                 }
             });
@@ -105,9 +101,9 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
     }
 
     public void appendData(List<Movie> newMoviesList) {
-        int positionStart = movies.size();
-        int itemCount = newMoviesList.size();
+        int startPosition = movies.size();
+        int newItemsCount = newMoviesList.size();
         movies.addAll(newMoviesList);
-        notifyItemRangeInserted(positionStart, itemCount);
+        notifyItemRangeInserted(startPosition, newItemsCount);
     }
 }

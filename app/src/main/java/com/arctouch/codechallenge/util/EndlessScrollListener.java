@@ -70,5 +70,13 @@ public abstract class EndlessScrollListener extends OnScrollListener {
         loading = true;
     }
 
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
+    public void setCurrentPage(int page) {
+        currentPage = page;
+    }
+
     public abstract void loadMoreItems(int desiredPage);
 }
