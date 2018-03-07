@@ -1,8 +1,5 @@
-package com.arctouch.codechallenge.base;
+package com.arctouch.codechallenge.api;
 
-import android.support.v7.app.AppCompatActivity;
-
-import com.arctouch.codechallenge.api.TmdbApi;
 import com.arctouch.codechallenge.util.Constants;
 
 import okhttp3.OkHttpClient;
@@ -10,9 +7,13 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
-public class BaseActivity extends AppCompatActivity {
+/**
+ * Created by Fabio on 06/03/18.
+ */
 
-    protected TmdbApi api = new Retrofit.Builder()
+public class MovieService {
+
+    public static final TmdbApi api = new Retrofit.Builder()
             .baseUrl(Constants.URL)
             .client(new OkHttpClient.Builder().build())
             .addConverterFactory(MoshiConverterFactory.create())

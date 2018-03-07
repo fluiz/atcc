@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +10,11 @@ import android.widget.ProgressBar;
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.api.TmdbApi;
 import com.arctouch.codechallenge.base.BaseActivity;
+import com.arctouch.codechallenge.content.movie.MovieActivity;
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
+import com.arctouch.codechallenge.util.Constants;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,7 @@ public class HomeActivity extends BaseActivity {
         this.recyclerView = findViewById(R.id.recyclerView);
         this.progressBar = findViewById(R.id.progressBar);
 
-        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1L, TmdbApi.DEFAULT_REGION)
+        api.upcomingMovies(Constants.API_KEY, Constants.DEFAULT_LANGUAGE, 1L, Constants.DEFAULT_REGION)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -44,8 +47,17 @@ public class HomeActivity extends BaseActivity {
                         }
                     }
 
-                    recyclerView.setAdapter(new HomeAdapter(response.results));
+                    recyclerView.setAdapter(new HomeAdapter(this, response.results));
                     progressBar.setVisibility(View.GONE);
                 });
+    }
+
+    protected void showMovieDetails(int movieId) {
+        Intent intent = new Intent(this, MovieActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt(Constants.MOVIE_ID_KEY, movieId);
+        intent.putExtras(bundle);
+        startActivity(intent);
+        finish();
     }
 }
