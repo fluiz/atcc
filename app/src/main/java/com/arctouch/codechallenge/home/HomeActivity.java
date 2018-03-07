@@ -14,6 +14,7 @@ import com.arctouch.codechallenge.api.TmdbApi;
 import com.arctouch.codechallenge.base.BaseActivity;
 import com.arctouch.codechallenge.content.movie.MovieActivity;
 import com.arctouch.codechallenge.data.Cache;
+import com.arctouch.codechallenge.interfaces.GenresCallbackInterface;
 import com.arctouch.codechallenge.interfaces.UpcomingMoviesCallbackInterface;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
@@ -40,10 +41,10 @@ public class HomeActivity extends BaseActivity {
 
         Activity thisActivity = this;
 
-        MovieService.getUpcomingMovies(1, moviesList -> {
+        MovieService.getGenres(() -> MovieService.getUpcomingMovies(1, moviesList -> {
             recyclerView.setAdapter(new HomeAdapter(thisActivity, moviesList));
             progressBar.setVisibility(View.GONE);
-        });
+        }));
     }
 
     protected void showMovieDetails(int movieId) {
