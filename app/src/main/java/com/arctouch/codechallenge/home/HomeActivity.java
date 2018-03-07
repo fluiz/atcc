@@ -53,11 +53,14 @@ public class HomeActivity extends BaseActivity {
     }
 
     protected void showMovieDetails(int movieId) {
-        Intent intent = new Intent(this, MovieActivity.class);
+        Intent detailsIntent = new Intent(this, MovieActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt(Constants.MOVIE_ID_KEY, movieId);
-        intent.putExtras(bundle);
-        startActivity(intent);
-        finish();
+        detailsIntent.putExtras(bundle);
+        startActivity(detailsIntent);
+    }
+
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 }

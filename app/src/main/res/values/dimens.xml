@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="poster_large_width">100dp</dimen>
+    <dimen name="backdrop_large_height">200dp</dimen>
+    <dimen name="detail_default_padding">8dp</dimen>
 </resources>

@@ -13,10 +13,20 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
+        <ImageView
+            android:id="@+id/backdropImageView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/backdrop_large_height"
+            android:adjustViewBounds="true"
+            android:importantForAccessibility="no"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image_placeholder" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="@dimen/detail_default_padding"
             android:gravity="center">
 
             <ImageView
@@ -28,48 +38,48 @@
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_image_placeholder" />
 
-            <ImageView
-                android:id="@+id/backdropImageView"
-                android:layout_width="@dimen/poster_large_width"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adjustViewBounds="true"
-                android:importantForAccessibility="no"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_image_placeholder" />
+                android:orientation="vertical"
+                android:gravity="center">
 
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Titanic" />
+
+            <TextView
+                android:id="@+id/genresTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textSize="14sp"
+                tools:text="Drama, Romance, Thriller" />
+
+            <TextView
+                android:id="@+id/releaseDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:textSize="12sp"
+                android:textStyle="italic"
+                tools:text="19/12/1997" />
+
+            </LinearLayout>
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            tools:text="Titanic" />
-
-        <TextView
-            android:id="@+id/genresTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:textSize="14sp"
-            tools:text="Drama, Romance, Thriller" />
-
-        <TextView
-            android:id="@+id/releaseDateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:textSize="12sp"
-            android:textStyle="italic"
-            tools:text="19/12/1997" />
 
         <TextView
             android:id="@+id/overviewTextView"

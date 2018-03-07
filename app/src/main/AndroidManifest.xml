@@ -20,8 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".home.HomeActivity"/>
-        <activity android:name=".content.movie.MovieActivity">
+        <activity android:name=".home.HomeActivity"
+            android:launchMode="singleTop"/>
+        <activity android:name=".content.movie.MovieActivity"
+            android:parentActivityName=".home.HomeActivity">
         </activity>
     </application>
 
