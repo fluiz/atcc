@@ -10,6 +10,7 @@ public class Cache {
 
     private static List<Genre> genres = new ArrayList<>();
     private static List<Movie> movies = new ArrayList<>();
+    private static List<Movie> searchResults = new ArrayList<>();
 
     public static List<Genre> getGenres() {
         return genres;
@@ -29,5 +30,12 @@ public class Cache {
 
     public static void addMovies(List<Movie> movies) {
         Cache.movies.addAll(movies);
+    }
+
+    public static List<Movie> getSearchResults() { return movies; }
+
+    public static void setSearchResults(List<Movie> movies) {
+        Cache.searchResults.clear();
+        Cache.searchResults.addAll(movies);
     }
 }
