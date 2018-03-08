@@ -3,7 +3,7 @@ package com.arctouch.codechallenge.api;
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.interfaces.GenresCallbackInterface;
 import com.arctouch.codechallenge.interfaces.MovieCallbackInterface;
-import com.arctouch.codechallenge.interfaces.UpcomingMoviesCallbackInterface;
+import com.arctouch.codechallenge.interfaces.MoviesListCallbackInterface;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.util.Constants;
@@ -55,12 +55,27 @@ public class MovieService {
         api.movie((long) movieId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(movieFound -> {
-                    mci.onGetMovieSuccess(movieFound);
+                .subscribe(mci::onGetMovieSuccess);
+    }
+
+    public static void searchMovie(String query, MoviesListCallbackInterface smci) {
+        api.searchMovies(query)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(moviesList -> {
+                    for (Movie movie : moviesList.results) {
+                        movie.genres = new ArrayList<>();
+                        for (Genre genre : Cache.getGenres()) {
+                            if (movie.genreIds.contains(genre.id)) {
+                                movie.genres.add(genre);
+                            }
+                        }
+                    }
+                    smci.onGetMoviesListSuccess(moviesList.results);
                 });
     }
 
-    public static void getUpcomingMovies(int page, UpcomingMoviesCallbackInterface umci) {
+    public static void getUpcomingMovies(int page, MoviesListCallbackInterface umci) {
         api.upcomingMovies((long) page, Constants.DEFAULT_REGION)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -73,7 +88,7 @@ public class MovieService {
                             }
                         }
                     }
-                    umci.onGetUpcomingMoviesSuccess(moviesList.results);
+                    umci.onGetMoviesListSuccess(moviesList.results);
                 });
     }
 

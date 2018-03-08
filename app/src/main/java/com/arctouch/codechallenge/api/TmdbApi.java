@@ -24,4 +24,9 @@ public interface TmdbApi {
     Observable<Movie> movie(
             @Path("id") Long id
     );
+
+    @GET("search/movie")
+    Observable<UpcomingMoviesResponse> searchMovies(
+            @Query("query") String query
+    );
 }
